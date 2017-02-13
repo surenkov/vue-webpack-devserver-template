@@ -34,9 +34,9 @@ var webpackConfig = merge(baseWebpackConfig, {
           loaders: utils.cssLoaders({
             sourceMap: config.build.productionSourceMap,
             extract: true
-          }),
-          minimize: config.build.minimize
-        }
+          })
+        },
+        minimize: config.build.minimize
       }
     }, commons)),
 

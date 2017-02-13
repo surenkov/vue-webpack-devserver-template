@@ -9,6 +9,11 @@ var config = require('../config')
 var utils = require('./utils')
 var baseWebpackConfig = require('./webpack.base.conf')
 
+var env = process.env.NODE_ENV;
+var cssSourceMapDev = (env === 'development' && config.dev.cssSourceMap)
+var cssSourceMapProd = (env === 'production' && config.build.productionSourceMap)
+var useCssSourceMap = cssSourceMapDev || cssSourceMapProd
+
 
 module.exports = merge(baseWebpackConfig, {
   module: {
@@ -26,6 +31,11 @@ module.exports = merge(baseWebpackConfig, {
   plugins: [
     new webpack.LoaderOptionsPlugin(merge({
       debug: true,
+      options: {
+        vue: {
+          loaders: utils.cssLoaders({ sourceMap: useCssSourceMap }),
+        }
+      }
     }, commons)),
 
     new webpack.DefinePlugin({
